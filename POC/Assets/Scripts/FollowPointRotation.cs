@@ -8,6 +8,7 @@ public class FollowPointRotation : MonoBehaviour
     public Vector2 _look;
     public GameObject followTransform;
     public float rotationPower;
+    public bool camRotate;
 
     public void OnLook(InputValue value)
     {
@@ -19,16 +20,28 @@ public class FollowPointRotation : MonoBehaviour
         followRotation();
     }
 
+    public void StopRotation()
+    {
+        camRotate = false;
+    }
+
+    public void AllowRotation()
+    {
+        camRotate = true;
+    }
     void followRotation()
     {
-        followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPower, Vector3.up);
+        if (camRotate)
+        {
+            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPower, Vector3.up);
 
-        var angles = followTransform.transform.localEulerAngles;
-        angles.z = 0;
-        angles.x = 30;
+            var angles = followTransform.transform.localEulerAngles;
+            angles.z = 0;
+            angles.x = 30;
 
-        followTransform.transform.localEulerAngles = angles;
+            followTransform.transform.localEulerAngles = angles;
 
+        }
         //followTransform.transform.localEulerAngles = new Vector3(angles.x,0,0);
     }
 }
