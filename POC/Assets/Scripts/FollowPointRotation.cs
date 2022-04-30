@@ -18,6 +18,7 @@ public class FollowPointRotation : MonoBehaviour
     void Update()
     {
         followRotation();
+        LockMouse();
     }
 
     public void StopRotation()
@@ -29,19 +30,34 @@ public class FollowPointRotation : MonoBehaviour
     {
         camRotate = true;
     }
+
+    void LockMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     void followRotation()
     {
         if (camRotate)
         {
             followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPower, Vector3.up);
+            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * rotationPower, Vector3.right);
 
             var angles = followTransform.transform.localEulerAngles;
             angles.z = 0;
-            angles.x = 30;
+
+            var angle = followTransform.transform.localEulerAngles.x;
+
+            if (angle > 180 && angle < 355)
+            {
+                angles.x = 355;
+            }
+            else if (angle < 180 && angle > 40)
+            {
+                angles.x = 40;
+            }
 
             followTransform.transform.localEulerAngles = angles;
 
         }
-        //followTransform.transform.localEulerAngles = new Vector3(angles.x,0,0);
     }
 }
