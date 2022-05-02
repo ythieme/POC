@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private bool jumpBool = false;
     bool space = false;
     private bool Grounded = true;
+    private bool doOnce = false;
 
     Vector3 rotation;
 
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             jumpBool = true;
+            doOnce = true;
         }
 
         //space key
@@ -130,7 +132,7 @@ public class Player : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
             jumpBool = false;
             Grounded = false;
-            //anim.SetBool("Jump", true);
+            anim.SetBool("Jump", true);
         }
         else
         {
@@ -187,9 +189,16 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.contacts[0].normal.y > 0.5 && !Input.GetKey(KeyCode.Space))
+        if (collision.contacts[0].normal.y > 0.5 && !Input.GetKey(KeyCode.Space) || collision.contacts[0].normal.y > 0.5 && !Input.GetKey(KeyCode.Joystick1Button0))
         {
+            Debug.Log("Collision");
             Grounded = true;
+            anim.SetBool("Jump", false);
+            if (doOnce)
+            {
+                anim.SetTrigger("normal");
+                doOnce = false;
+            }
             WallJumpBool = false;
         }
     }

@@ -7,7 +7,8 @@ public class FollowPointRotation : MonoBehaviour
 {
     public Vector2 _look;
     public GameObject followTransform;
-    public float rotationPower;
+    public float rotationPowerHorizontal;
+    public float rotationPowerVertical;
     public bool camRotate;
 
     public void OnLook(InputValue value)
@@ -39,8 +40,8 @@ public class FollowPointRotation : MonoBehaviour
     {
         if (camRotate)
         {
-            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPower, Vector3.up);
-            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * rotationPower, Vector3.right);
+            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPowerHorizontal, Vector3.up);
+            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * rotationPowerVertical, Vector3.right);
 
             var angles = followTransform.transform.localEulerAngles;
             angles.z = 0;
