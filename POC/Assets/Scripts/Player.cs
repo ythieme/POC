@@ -133,12 +133,21 @@ public class Player : MonoBehaviour
             jumpBool = false;
             Grounded = false;
             anim.SetBool("Jump", true);
+            StartCoroutine(SetGroundedFalse());
         }
         else
         {
             jumpBool = false;
         }
     }
+
+    IEnumerator SetGroundedFalse ()
+    {
+        yield return null;
+        yield return new WaitForFixedUpdate();
+        Grounded = false;
+    }
+
     /*void WallJump()
     {
 
