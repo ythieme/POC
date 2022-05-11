@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class LinkTo : MonoBehaviour
 {
+
+    [SerializeField]
+    Vector3 offset;
+
     [SerializeField]
     Transform linkedTo;
+
     // Update is called once per frame
     void Update()
     {
-        transform.position = linkedTo.position;
+        transform.position = linkedTo.position + offset;
     }
 }
