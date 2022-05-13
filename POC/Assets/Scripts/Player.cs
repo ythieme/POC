@@ -200,7 +200,6 @@ public class Player : MonoBehaviour
     {
         if (collision.contacts[0].normal.y > 0.5 && !Input.GetKey(KeyCode.Space) || collision.contacts[0].normal.y > 0.5 && !Input.GetKey(KeyCode.Joystick1Button0))
         {
-            Debug.Log("Collision");
             Grounded = true;
             anim.SetBool("Jump", false);
             if (doOnce)
