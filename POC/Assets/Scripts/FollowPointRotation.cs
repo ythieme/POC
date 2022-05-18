@@ -10,6 +10,7 @@ public class FollowPointRotation : MonoBehaviour
     public float rotationPowerHorizontal;
     public float rotationPowerVertical;
     public bool camRotate;
+    public bool inverted;
 
     public void OnLook(InputValue value)
     {
@@ -34,9 +35,18 @@ public class FollowPointRotation : MonoBehaviour
     {
         if (camRotate)
         {
-            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPowerHorizontal, Vector3.up);
-            followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * rotationPowerVertical, Vector3.right);
+            if (inverted)
+            {
+                followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPowerHorizontal, Vector3.up);
+                followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * -rotationPowerVertical, Vector3.right);
+                //followTransform.transform.rotation *= Quaternion.AngleAxis(inverted ? _look.x : -_look.y * rotationPowerHorizontal, Vector3.up)
+            }
 
+            else if (!inverted)
+            {
+                followTransform.transform.rotation *= Quaternion.AngleAxis(_look.x * rotationPowerHorizontal, Vector3.up);
+                followTransform.transform.rotation *= Quaternion.AngleAxis(_look.y * rotationPowerVertical, Vector3.right);
+            }
             var angles = followTransform.transform.localEulerAngles;
             angles.z = 0;
 
@@ -54,5 +64,10 @@ public class FollowPointRotation : MonoBehaviour
             followTransform.transform.localEulerAngles = angles;
 
         }
+    }
+
+    void YaxisInverted()
+    {
+
     }
 }
