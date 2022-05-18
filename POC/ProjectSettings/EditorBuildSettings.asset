@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/LD_POC.unity
+    guid: 12b73a18f7d69304bb27f5bc7e3a67a2
   m_configObjects: {}

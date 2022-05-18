@@ -19,7 +19,6 @@ public class FollowPointRotation : MonoBehaviour
     void Update()
     {
         followRotation();
-        LockMouse();
     }
 
     public void StopRotation()
@@ -30,11 +29,6 @@ public class FollowPointRotation : MonoBehaviour
     public void AllowRotation()
     {
         camRotate = true;
-    }
-
-    void LockMouse()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
     }
     void followRotation()
     {
